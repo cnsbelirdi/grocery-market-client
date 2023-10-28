@@ -1,0 +1,206 @@
+<div class="flex flex-col gap-y-3 h-full">
+  <h1 class="text-xl font-bold text-slate-800">Dashboard</h1>
+  <div class="grid grid-cols-5 gap-4 text-gray-500">
+    <a
+      routerLink="../orders"
+      class="p-4 border-2 border-gray-200 rounded-xl space-y-2 uppercase bg-gray-50 hover:bg-gray-100 border-l-[6px] border-l-emerald-400"
+    >
+      <div class="flex items-center">
+        <span class="text-gray-800 font-bold text-sm">Total orders</span>
+      </div>
+      <div
+        class="text-2xl font-bold text-slate-800 flex items-center justify-between"
+      >
+        {{ tableRowCounts.length > 0 ? tableRowCounts[1] : "NaN" }}
+
+        <div class="p-2 rounded-lg bg-emerald-400 text-white flex items-center">
+          <ng-icon name="matShoppingBasketOutline" size="18"></ng-icon>
+        </div>
+      </div>
+    </a>
+    <a
+      routerLink="../marketplace"
+      class="p-4 border-2 border-gray-200 rounded-xl space-y-2 uppercase bg-gray-50 hover:bg-gray-100 border-l-[6px] border-l-lime-400"
+    >
+      <div class="flex items-center">
+        <span class="text-gray-800 font-bold text-sm">Total products</span>
+      </div>
+      <div
+        class="text-2xl font-bold text-slate-800 flex items-center justify-between"
+      >
+        {{ tableRowCounts.length > 0 ? tableRowCounts[0] : "NaN" }}
+
+        <div class="p-2 rounded-lg bg-lime-400 text-white flex items-center">
+          <ng-icon name="matShoppingBagOutline" size="18"></ng-icon>
+        </div>
+      </div>
+    </a>
+    <a
+      routerLink="../customers"
+      class="p-4 border-2 border-gray-200 rounded-xl space-y-2 uppercase bg-gray-50 hover:bg-gray-100 border-l-[6px] border-l-violet-400"
+    >
+      <div class="flex items-center">
+        <span class="text-gray-800 font-bold text-sm">Total customers</span>
+      </div>
+      <div
+        class="text-2xl font-bold text-slate-800 flex items-center justify-between"
+      >
+        {{ tableRowCounts.length > 0 ? tableRowCounts[2] : "NaN" }}
+
+        <div class="p-2 rounded-lg bg-violet-400 text-white flex items-center">
+          <ng-icon name="matPeopleAltOutline" size="18"></ng-icon>
+        </div>
+      </div>
+    </a>
+    <a
+      routerLink="../ietracking"
+      class="p-4 border-2 border-gray-200 rounded-xl space-y-2 uppercase bg-gray-50 hover:bg-gray-100 border-l-[6px] border-l-orange-400"
+    >
+      <div class="flex items-center">
+        <span class="text-gray-800 font-bold text-sm">Total income</span>
+      </div>
+      <div
+        class="text-2xl font-bold text-slate-800 flex items-center justify-between"
+      >
+        {{
+          (tableRowCounts.length > 0 ? tableRowCounts[3] : "NaN")
+            | currency : "USD"
+        }}
+
+        <div class="p-2 rounded-lg bg-orange-400 text-white flex items-center">
+          <ng-icon name="matAttachMoneyOutline" size="18"></ng-icon>
+        </div>
+      </div>
+    </a>
+    <a
+      routerLink="../ietracking"
+      class="p-4 border-2 border-gray-200 rounded-xl space-y-2 uppercase bg-gray-50 hover:bg-gray-100 border-l-[6px] border-l-sky-400"
+    >
+      <div class="flex items-center">
+        <span class="text-gray-800 font-bold text-sm">Final Balance</span>
+      </div>
+      <div
+        class="text-2xl font-bold text-slate-800 flex items-center justify-between"
+      >
+        {{
+          (tableRowCounts.length > 0 ? tableRowCounts[4] : "NaN")
+            | currency : "USD"
+        }}
+
+        <div class="p-2 rounded-lg bg-sky-400 text-white flex items-center">
+          <ng-icon name="matAccountBalanceWalletOutline" size="18"></ng-icon>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="grid grid-cols-3 gap-x-4 h-fit">
+    <div class="col-span-2 space-y-4 flex flex-col justify-between">
+      <!-- LINECHART -->
+      <div class="h-[500px] p-4 rounded-lg border-2 border-gray-200 bg-gray-50">
+        <h1 class="text-lg font-bold text-slate-800">
+          Last 6 months Incomes / Expenses
+        </h1>
+        <app-linechart></app-linechart>
+      </div>
+      <!-- ORDER LIST -->
+      <div class="rounded-lg border-2 border-gray-200 bg-gray-50 divide-y">
+        <h1 class="text-lg font-bold px-4 py-2 text-slate-800">
+          Waiting Orders
+        </h1>
+        <div
+          class="w-full h-52 space-y-4 overflow-y-scroll scrollbar px-4 py-2"
+        >
+          <table class="table-fixed w-full text-left">
+            <thead>
+              <tr class="border-b-2 border-gray-300">
+                <th width="150">Order Number</th>
+                <th width="250">Username</th>
+                <th>Total Price</th>
+                <th>Delivery Time</th>
+                <th width="30"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of orders">
+                <td>{{ item.orderNumber }}</td>
+                <td>{{ item.username }}</td>
+                <td>{{ item.totalPrice | currency : "USD" }}</td>
+                <td>{{ item.deliveryTime }}</td>
+                <td>
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <ng-icon name="matMoreVertOutline" size="24"></ng-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" xPosition="before">
+                    <button
+                      (click)="showDetail(item.orderNumber)"
+                      class="w-40 flex items-center gap-x-3 p-3 hover:bg-black hover:bg-opacity-5"
+                    >
+                      <ng-icon name="matInfoOutline" size="24"></ng-icon>
+                      <span>View Detail</span>
+                    </button>
+                    <button
+                      appDelete
+                      [id]="item.id"
+                      controller="orders"
+                      (callback)="getOrders()"
+                      class="w-40 flex items-center gap-x-3 p-3 hover:bg-black hover:bg-opacity-5"
+                    >
+                      <span>Cancel</span>
+                    </button>
+                  </mat-menu>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-1 space-y-4 flex flex-col justify-between">
+      <!-- DOUGHNUT CHART -->
+      <div class="h-64 p-4 rounded-lg border-2 border-gray-200 bg-gray-50">
+        <h1 class="text-lg font-bold text-slate-800">Sales by category</h1>
+        <app-doughnutchart></app-doughnutchart>
+      </div>
+      <!-- BAR CHART-->
+      <div class="h-64 p-4 rounded-lg border-2 border-gray-200 bg-gray-50">
+        <h1 class="text-lg font-bold text-slate-800">Last 12 days orders</h1>
+        <app-barchart></app-barchart>
+      </div>
+      <!-- PRODUCT LIST -->
+      <div class="h-56 rounded-lg border-2 border-gray-200 bg-gray-50 divide-y">
+        <h1 class="text-lg font-bold px-4 py-2 text-slate-800">
+          No Stock Products
+        </h1>
+        <div
+          class="w-full h-40 space-y-4 overflow-y-scroll scrollbar px-4 py-2"
+        >
+          <table class="table-fixed w-full text-left">
+            <thead>
+              <tr class="border-b-2 border-gray-300">
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th width="30"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of products">
+                <td>{{ item.name }}</td>
+                <td>{{ item.price | currency : "USD" }}</td>
+                <td>{{ item.category }}</td>
+                <td>
+                  <button
+                    (click)="editProduct(item)"
+                    class="p-2 hover:bg-black hover:bg-opacity-5"
+                  >
+                    <ng-icon name="matEditOutline" size="18"></ng-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

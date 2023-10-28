@@ -1,0 +1,189 @@
+<div
+  class="w-full h-screen bg-hero bg-contain flex flex-col gap-y-4 items-center justify-center"
+>
+  <div class="flex flex-col w-1/5 bg-gray-50 p-6 rounded-sm gap-y-4">
+    <!-- WELCOME & LOGO -->
+    <div class="flex items-center justify-center gap-x-6">
+      <span class="text-blue_black text-2xl font-semibold">WELCOME</span>
+      <a href="/" class="flex">
+        <img src="../../../../../assets/logo.png" alt="logo" class="w-8 h-8" />
+        <div class="mx-2 -mt-1">
+          <h2 class="text-primary text-base font-semibold">Market Name</h2>
+          <h3 class="text-gray-400 text-xs">GROCERY / MARKET</h3>
+        </div>
+      </a>
+    </div>
+    <!-- FORM -->
+    <form
+      autocomplete="off"
+      [formGroup]="frm"
+      (ngSubmit)="onSubmit(frm.value)"
+      class="grid gap-y-4"
+    >
+      <div class="w-full flex flex-col">
+        <label for="fullname" class="text-blue_black font-bold text-sm"
+          >Fullname</label
+        >
+        <input
+          type="text"
+          id="fullname"
+          aria-describedby="nameSurnameWarning"
+          formControlName="fullname"
+          class="bg-white border-2 border-slate-300 p-1 rounded-sm outline-none focus:border-primary"
+          [ngClass]="{ 'is-invalid': submitted && component.fullname.errors }"
+        />
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="submitted && component.fullname.errors?.required"
+        >
+          Please do not leave this field blank
+        </div>
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="
+            submitted &&
+            (component.fullname.errors?.maxlength ||
+              component.fullname.errors?.minlength)
+          "
+        >
+          Please enter your full name between 3 and 50 characters.
+        </div>
+      </div>
+      <div class="w-full flex flex-col">
+        <label for="emailAddress" class="text-blue_black font-bold text-sm"
+          >Email address</label
+        >
+        <input
+          type="email"
+          id="emailAddress"
+          aria-describedby="emailWarning"
+          formControlName="email"
+          class="bg-white border-2 border-slate-300 p-1 rounded-sm outline-none focus:border-primary"
+          [ngClass]="{ 'is-invalid': submitted && component.email.errors }"
+        />
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="submitted && component.email.errors?.required"
+        >
+          Please do not leave this field blank
+        </div>
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="submitted && component.email.errors?.maxlength"
+        >
+          Please enter a maximum of 250 characters for your email address.
+        </div>
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="submitted && component.email.errors?.email"
+        >
+          Please enter a valid email address.
+        </div>
+      </div>
+      <div class="w-full flex flex-col">
+        <label for="username" class="text-blue_black font-bold text-sm"
+          >Username</label
+        >
+        <input
+          type="text"
+          id="username"
+          aria-describedby="username"
+          class="bg-white border-2 border-slate-300 p-1 rounded-sm outline-none focus:border-primary"
+          formControlName="username"
+          [ngClass]="{ 'is-invalid': submitted && component.username.errors }"
+        />
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="submitted && component.username.errors?.required"
+        >
+          Please do not leave this field blank
+        </div>
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="
+            submitted &&
+            (component.username.errors?.maxlength ||
+              component.username.errors?.minlength)
+          "
+        >
+          Please enter your username between 6 and 25 characters.
+        </div>
+      </div>
+      <div class="w-full flex flex-col">
+        <label for="username" class="text-blue_black font-bold text-sm"
+          >Phone Number</label
+        >
+        <input
+          type="tel"
+          id="phoneNumber"
+          aria-describedby="phoneNumber"
+          class="bg-white border-2 border-slate-300 p-1 rounded-sm outline-none focus:border-primary"
+          formControlName="phoneNumber"
+          [ngClass]="{
+            'is-invalid': submitted && component.phoneNumber.errors
+          }"
+        />
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="submitted && component.phoneNumber.errors?.required"
+        >
+          Please do not leave this field blank
+        </div>
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="submitted && component.phoneNumber.errors?.pattern"
+        >
+          Please enter the phone number in the correct format
+        </div>
+      </div>
+      <div class="w-full flex flex-col">
+        <label for="password" class="text-blue_black font-bold text-sm">
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          class="bg-white border-2 border-slate-300 p-1 rounded-sm outline-none focus:border-primary"
+          formControlName="password"
+          [ngClass]="{ 'is-invalid': submitted && component.password.errors }"
+        />
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="submitted && component.password.errors?.required"
+        >
+          Please do not leave this field blank
+        </div>
+      </div>
+      <div class="w-full flex flex-col">
+        <label for="passwordConfirm" class="text-blue_black font-bold text-sm">
+          Password Confirm
+        </label>
+        <input
+          type="password"
+          id="passwordConfirm"
+          class="bg-white border-2 border-slate-300 p-1 rounded-sm outline-none focus:border-primary"
+          formControlName="passwordConfirm"
+          [ngClass]="{
+            'is-invalid': submitted && component.passwordConfirm.errors
+          }"
+        />
+        <div
+          class="text-rose-500 text-sm"
+          *ngIf="submitted && frm.hasError('notSame')"
+        >
+          The passwords are not matching. Please try again.
+        </div>
+      </div>
+      <button type="submit" class="bg-primary text-white w-full p-1 rounded-sm">
+        Register
+      </button>
+    </form>
+    <!-- LOGIN -->
+    <div class="text-center">
+      <span class="text-sm">Already have an account?</span>
+      <a routerLink="../login" class="text-primary text-xs underline ml-1"
+        >Log in</a
+      >
+    </div>
+  </div>
+</div>

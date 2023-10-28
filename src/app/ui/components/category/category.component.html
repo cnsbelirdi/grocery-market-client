@@ -1,0 +1,94 @@
+<div class="container mx-auto flex flex-col justify-center">
+  <!-- Breadcrumb -->
+  <nav class="flex" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+      <li class="inline-flex items-center">
+        <a
+          routerLink="/"
+          class="ml-1 text-sm font-medium text-gray-400 md:ml-2"
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg
+            class="w-6 h-6 text-gray-400"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clipRule="evenodd"
+            ></path>
+          </svg>
+          <a
+            routerLink="."
+            class="ml-1 text-sm font-semibold text-primary hover:text-emerald-600 md:ml-2"
+          >
+            {{ currentCategory && currentCategory.name }}
+          </a>
+        </div>
+      </li>
+    </ol>
+  </nav>
+  <!-- Product List -->
+  <div class="flex flex-col items-center gap-y-20">
+    <div class="mt-5 w-full grid md:grid-cols-5 md:gap-5 sm:grid-cols-3">
+      <!-- Product Item -->
+      <div
+        class="w-full rounded-md flex flex-col gap-y-3 p-4 hover:cursor-pointer border border-gray-300"
+        *ngFor="let product of products"
+      >
+        <img
+          *ngIf="product.productImageFiles.length"
+          src="{{ baseUrl.url }}/{{ product.imagePath }}"
+          class="w-24 h-24 mx-auto"
+          alt="{{ product.name }}"
+        />
+        <img
+          *ngIf="!product.productImageFiles.length"
+          src="../../../../../assets/default-product.png"
+          class="w-24 h-24 mx-auto"
+          alt="{{ product.name }}"
+        />
+        <div class="flex flex-col items-start justify-start w-full gap-y-3">
+          <span class="text-xs text-gray-400">{{ product.category }}</span>
+          <a
+            routerLink="../../product/{{ product.id }}"
+            class="text-lg font-semibold text-blue_black hover:underline block truncate text-ellipsis w-64"
+          >
+            {{ product.name }}
+          </a>
+          <div class="flex items-center justify-between w-full">
+            <span class="text-lg text-primary font-bold">{{
+              product.price | currency : "USD"
+            }}</span>
+            <button
+              class="flex items-center gap-x-2 bg-green-200 text-primary p-3 rounded-md text-sm hover:bg-green-300"
+              (click)="addToBasket(product)"
+            >
+              <ng-icon name="matAddShoppingCartOutline" size="16"></ng-icon>
+              <span>Add</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination-->
+    <mat-paginator
+      #paginator
+      [pageIndex]="currentPageNo - 1"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 20, 30, 50]"
+      [length]="totalProductCount"
+      [showFirstLastButtons]="true"
+      aria-label="Select page of users"
+      (page)="changePage($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

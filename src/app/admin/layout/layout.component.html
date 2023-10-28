@@ -1,0 +1,16 @@
+<div class="w-full h-screen bg-white">
+  <app-sidebar [active]="active" (activeEvent)="setActive()"></app-sidebar>
+  <div
+    class="px-4 py-[10px] box-border flex flex-col h-screen max-h-screen {{
+      active ? 'ml-64' : 'ml-24'
+    }}"
+  >
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<audio id="notificationSound">
+  <source
+    src="../../../assets/sounds/new-order-notification.mp3"
+    type="audio/mpeg"
+  />
+</audio>

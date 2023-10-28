@@ -1,0 +1,88 @@
+<div class="relative grid grid-cols-2 gap-x-5">
+  <div class="card {{ backface && 'flip' }}">
+    <div class="front">
+      <div class="card-edit-delete">
+        <button (click)="setFormActive()">
+          {{ formActive ? "Close" : "Edit" }}
+        </button>
+      </div>
+      <div class="card-top">
+        <img src="../../../../../assets/credit-card/chip.png" alt="chip" />
+        <img
+          *ngIf="card && card.isValid"
+          src="../../../../../assets/credit-card/{{ card.cardType }}.png"
+          alt="card-type"
+        />
+      </div>
+      <div class="card-number">
+        {{ card.cardNumber || "**** **** **** ****" }}
+      </div>
+      <div class="card-bottom">
+        <div>
+          <div class="key">Card Holder Name</div>
+          <div class="value">{{ card.cardHolderName || "***" }}</div>
+        </div>
+        <div>
+          <div class="key">Expiry Date</div>
+          <div class="value">{{ card.expireDate || "**/2*" }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="back">
+      <div class="card-back">
+        CVV<em>{{ card.cardCVV || "***" }}</em>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col mt-3 w-[352px] gap-y-3 {{
+      formActive ? 'visible' : 'hidden'
+    }}"
+  >
+    <input
+      type="text"
+      placeholder="Card Number"
+      maxlength="16"
+      class="border border-gray-300 p-2 rounded appearance-none"
+      (keyup)="setNumber($event)"
+      (click)="backface ? (backface = false) : false"
+    />
+    <input
+      type="text"
+      placeholder="Card Holder Name"
+      class="border border-gray-300 p-2 rounded"
+      (keyup)="setHolderName($event)"
+      (click)="backface ? (backface = false) : false"
+    />
+
+    <input
+      type="text"
+      placeholder="Expire Date"
+      (keyup)="setExpireDate($event)"
+      class="border border-gray-300 p-2 rounded"
+      (click)="backface ? (backface = false) : false"
+    />
+    <input
+      type="text"
+      maxlength="3"
+      placeholder="CVV"
+      (keyup)="setCVV($event)"
+      class="border border-gray-300 p-2 rounded"
+      (click)="!backface ? (backface = true) : true"
+    />
+    <label>
+      <input
+        type="checkbox"
+        [checked]="backface"
+        (click)="backface = !backface"
+      />
+      {{ backface ? "Hide " : "Show " }}backface
+    </label>
+    <button
+      class="bg-sky-500 w-fit self-end px-3 py-2 text-md text-white rounded"
+      (click)="setFormActive()"
+    >
+      Save
+    </button>
+  </div>
+</div>

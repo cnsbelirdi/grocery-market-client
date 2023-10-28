@@ -1,0 +1,100 @@
+<h2 mat-dialog-title>Product Detail</h2>
+<mat-dialog-content>
+  <div class="flex gap-x-2">
+    <div class="flex-1 grid col-span-1 gap-3">
+      <mat-form-field appearance="fill" class="">
+        <mat-label>Name</mat-label>
+        <input value="{{ product.name }}" matInput #txtName reqiured />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Stock</mat-label>
+        <input
+          value="{{ product.stock }}"
+          matInput
+          #txtStock
+          type="number"
+          min="0"
+          reqiured
+        />
+      </mat-form-field>
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Price</mat-label>
+        <input
+          value="{{ product.price }}"
+          matInput
+          type="number"
+          class="example-right-align"
+          min="0"
+          #txtPrice
+          reqiured
+        />
+        <span matTextPrefix>$&nbsp;</span>
+      </mat-form-field>
+      <div class="flex gap-2">
+        <mat-form-field appearance="fill" class="product-input flex-1">
+          <mat-label>Barcode</mat-label>
+          <input value="{{ product.barcode }}" matInput #txtBarcode />
+        </mat-form-field>
+
+        <button
+          (click)="scanBarcode()"
+          class="bg-gray-100 rounded-lg flex h-fit p-4 items-center hover:text-gray-700 hover:bg-gray-200"
+        >
+          <ng-icon
+            name="matBarcodeOutline"
+            class="text-gray-500"
+            size="24"
+          ></ng-icon>
+        </button>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea
+          value="{{ product.description }}"
+          matInput
+          #txtDescription
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select #selectedCategory value="{{ product.categoryId }}">
+          <mat-option value="{{ item.id }}" *ngFor="let item of categories">{{
+            item.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div
+      class="w-24 h-24 flex items-center justify-center rounded-full border overflow-hidden"
+    >
+      <img
+        src="{{
+          product.imagePath
+            ? baseUrl.url + '/' + product.imagePath
+            : '../../../../../assets/default-product.png'
+        }}"
+        class="w-16 h-16"
+      />
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    (click)="
+      editProduct(
+        txtName,
+        txtStock,
+        txtPrice,
+        txtBarcode,
+        txtDescription,
+        selectedCategory
+      )
+    "
+  >
+    Save
+  </button>
+</mat-dialog-actions>

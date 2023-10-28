@@ -1,0 +1,56 @@
+<div class="flex flex-col gap-y-9 justify-center">
+  <!-- Navigation -->
+  <div class="flex items-center justify-between">
+    <h1 class="text-3xl font-bold text-blue_black">Explore Categories</h1>
+    <ul class="flex items-center gap-x-4">
+      <li
+        *ngFor="let item of categories"
+        class="text-base font-semibold {{
+          item.name == selectedCategory
+            ? 'text-primary hover:text-blue_black'
+            : 'text-blue_black hover:text-primary'
+        }} cursor-pointer"
+      >
+        <button (click)="filterProducts(item.name)">{{ item.name }}</button>
+      </li>
+    </ul>
+  </div>
+  <!-- Data -->
+  <div class="w-full">
+    <swiper
+      [slidesPerView]="8"
+      [loop]="false"
+      (swiper)="onSwiper($event)"
+      (slideChange)="onSlideChange()"
+    >
+      <ng-template
+        swiperSlide
+        *ngFor="let product of filteredProduct; let i = index"
+      >
+        <div
+          class="w-40 rounded-md flex flex-col items-center gap-y-4 p-3 group hover:cursor-pointer"
+          [ngStyle]="{ 'background-color': getRandomColor(i) }"
+        >
+          <img
+            *ngIf="product.productImageFiles.length"
+            src="{{ baseUrl.url }}/{{ product.imagePath }}"
+            class="w-24 h-24 mx-auto rounded-lg"
+            alt="{{ product.name }}"
+          />
+          <img
+            class="w-24 h-24"
+            *ngIf="!product.productImageFiles.length"
+            src="../../../../../assets/default-product.png"
+            alt="{{ product.name }}"
+          />
+          <a
+            routerLink="/product/{{ product.id }}"
+            class="text-md font-semibold text-blue_black group-hover:underline block truncate text-ellipsis w-40 px-3 text-center"
+          >
+            {{ product.name }}
+          </a>
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+</div>

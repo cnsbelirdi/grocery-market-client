@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Create New Product</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="grid col-span-1 gap-3">
+    <mat-form-field appearance="fill" class="">
+      <mat-label>Name</mat-label>
+      <input matInput #txtName reqiured />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="">
+      <mat-label>Stock</mat-label>
+      <input matInput #txtStock type="number" min="0" reqiured />
+    </mat-form-field>
+    <mat-form-field appearance="fill" floatLabel="always">
+      <mat-label>Price</mat-label>
+      <input matInput type="number" min="0" #txtPrice reqiured />
+      <span matTextPrefix>$&nbsp;</span>
+    </mat-form-field>
+    <div class="flex gap-2">
+      <mat-form-field appearance="fill" class="product-input flex-1">
+        <mat-label>Barcode</mat-label>
+        <input id="txtBarcode" matInput #txtBarcode />
+      </mat-form-field>
+
+      <button
+        (click)="scanBarcode()"
+        class="bg-gray-100 rounded-lg flex h-fit p-4 items-center hover:text-gray-700 hover:bg-gray-200"
+      >
+        <ng-icon
+          name="matBarcodeOutline"
+          class="text-gray-500"
+          size="24"
+        ></ng-icon>
+      </button>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput #txtDescription></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select #selectedCategory>
+        <mat-option value="{{ item.id }}" *ngFor="let item of categories">{{
+          item.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    (click)="
+      create(
+        txtName,
+        txtStock,
+        txtPrice,
+        txtBarcode,
+        txtDescription,
+        selectedCategory
+      )
+    "
+  >
+    Create Product
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,138 @@
+<div class="container mx-auto flex justify-between items-center">
+  <!-- Logo Part-->
+  <a href="/" class="flex">
+    <img src="../../../../../assets/logo.png" alt="logo" />
+    <div class="mx-2 -mt-1">
+      <h2 class="text-primary text-lg font-semibold">MARKETY</h2>
+      <h3 class="text-gray-400 text-xs">GROCERY / MARKET</h3>
+    </div>
+  </a>
+  <!-- Search Part -->
+  <div class="w-1/4 relative space-y-2">
+    <div
+      class="w-full bg-gray-200 flex rounded-sm items-center justify-between divide-x-2 divide-gray-400"
+    >
+      <input
+        class="bg-transparent placeholder-gray-400 pl-2 w-80 outline-none"
+        type="text"
+        placeholder="Search for items.."
+        #search
+        (keyup)="searchProducts($event)"
+      />
+
+      <button
+        class="bg-primary text-white p-2 border-none rounded-br-sm rounded-tr-sm"
+      >
+        <ng-icon name="jamSearch" size="24" class="pt-1"></ng-icon>
+      </button>
+    </div>
+    <div
+      class="w-full px-2 h-fit bg-gray-50 shadow-md border border-gray-200 rounded-sm {{
+        searching ? 'absolute' : 'hidden'
+      }}"
+    >
+      <div class="flex flex-col divide-y">
+        <a
+          routerLink="product/{{ product.id }}"
+          class="flex items-center gap-x-2 p-2 hover:bg-gray-100"
+          *ngFor="let product of products"
+          (click)="clear(search)"
+        >
+          <img
+            src="{{
+              product.imagePath
+                ? baseUrl.url + '/' + product.imagePath
+                : '../../../../../assets/default-product.png'
+            }}"
+            alt="{{ product.name }}"
+            class="w-10 aspect-square border border-gray-200 rounded-md"
+          />
+          <span>{{ product.name }}</span>
+        </a>
+        <a
+          class="flex items-center gap-x-2 p-2 hover:bg-gray-100"
+          *ngIf="products.length == 0"
+        >
+          <span>No product</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Profile & Basket Part-->
+  <div class="flex items-center gap-x-12" *ngIf="authService.isAuthenticated">
+    <!-- Profile Part -->
+    <div class="w-52">
+      <button
+        mat-button
+        [matMenuTriggerFor]="profile"
+        class="flex items-center gap-x-2 group"
+      >
+        <div
+          class="flex items-center justify-center w-10 h-10 uppercase rounded-full bg-emerald-200 text-emerald-900 font-semibold border border-blue_black group-hover:bg-emerald-300 group-hover:text-gray-600 transition-all duration-500"
+        >
+          {{ username_short }}
+        </div>
+        <h1 class="font-semibold text-blue_black">
+          {{ username && username }}
+        </h1>
+      </button>
+      <mat-menu #profile="matMenu" class="bg-gray-50 font-bold w-[180px] !mt-1">
+        <a
+          mat-menu-item
+          routerLink="user/profile"
+          class="flex items-center gap-x-2 py-2 w-[180px]"
+          >Profile</a
+        >
+        <a
+          mat-menu-item
+          routerLink="user/orders"
+          class="flex items-center gap-x-2 py-2 w-[180px]"
+          >Orders</a
+        >
+        <button
+          mat-menu-item
+          class="flex items-center gap-x-2 py-2 w-[180px]"
+          (click)="signOut()"
+        >
+          Sign out
+        </button>
+      </mat-menu>
+    </div>
+    <!-- Basket Part -->
+    <div class="w-28 flex items-center gap-x-2 relative">
+      <div class="hover:text-primary transition-all duration-500">
+        <button
+          type="button"
+          class="flex items-center gap-x-2"
+          (click)="loadComponent()"
+          id="basket"
+        >
+          <div class="flex items-center gap-x-2">
+            <ng-icon name="heroShoppingCart" size="26"></ng-icon>
+            <span class="text-sm">My cart</span>
+          </div>
+          <ng-icon name="heroChevronDown" size="18"></ng-icon>
+        </button>
+      </div>
+      <div
+        id="currentBasket"
+        class="hidden w-80 bg-gray-100 text-center rounded-md shadow-2xl font-bold p-3 border-2 border-gray-100 absolute top-10 right-0"
+      >
+        <app-basket></app-basket>
+      </div>
+    </div>
+  </div>
+  <!-- Register & Login Buttons-->
+  <div class="flex items-center gap-x-12" *ngIf="!authService.isAuthenticated">
+    <a
+      routerLink="register"
+      class="bg-primary text-white hover:bg-emerald-400 p-2 rounded-sm"
+      >Register</a
+    >
+    <a
+      routerLink="login"
+      class="bg-primary text-white hover:bg-emerald-400 p-2 rounded-sm"
+      >Login</a
+    >
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Create New Payment</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="grid col-span-1 gap-3">
+    <mat-form-field appearance="fill">
+      <mat-label>Type</mat-label>
+      <mat-select #selectedType>
+        <mat-option value="IncomePayment">Income</mat-option>
+        <mat-option value="ExpensePayment">Expense</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" floatLabel="always">
+      <mat-label>Amount</mat-label>
+      <input
+        matInput
+        type="number"
+        class="example-right-align"
+        min="0"
+        #txtAmount
+        reqiured
+      />
+      <span matTextPrefix>$&nbsp;</span>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Information</mat-label>
+      <textarea matInput #txtInformation></textarea>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    (click)="create(txtAmount, txtInformation, selectedType)"
+  >
+    Create Payment
+  </button>
+</mat-dialog-actions>

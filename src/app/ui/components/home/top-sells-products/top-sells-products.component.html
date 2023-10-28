@@ -1,0 +1,67 @@
+<div class="flex flex-col gap-y-9 justify-center">
+  <!-- Navigation -->
+  <div class="flex items-center justify-between">
+    <h1 class="text-3xl font-bold text-blue_black">Top Sell Products</h1>
+    <ul class="flex items-center gap-x-4">
+      <li
+        *ngFor="let item of categories"
+        class="text-base font-semibold {{
+          item.name == selectedCategory
+            ? 'text-primary hover:text-blue_black'
+            : 'text-blue_black hover:text-primary'
+        }} cursor-pointer"
+      >
+        <button (click)="filterProducts(item.name)">{{ item.name }}</button>
+      </li>
+    </ul>
+  </div>
+  <!-- Data -->
+  <div class="w-full">
+    <swiper
+      [slidesPerView]="5"
+      [spaceBetween]="50"
+      [loop]="false"
+      (swiper)="onSwiper($event)"
+      (slideChange)="onSlideChange()"
+    >
+      <ng-template swiperSlide *ngFor="let product of filteredProduct">
+        <div
+          class="w-full bg-gray-50 rounded-md flex flex-col gap-y-3 p-4 hover:cursor-pointer border border-gray-300"
+        >
+          <a routerLink="/Product/{{ product.id }}"
+            ><img
+              *ngIf="product.productImageFiles.length"
+              src="{{ baseUrl.url }}/{{ product.imagePath }}"
+              class="w-24 h-24 mx-auto rounded-lg"
+              alt="{{ product.name }}" />
+            <img
+              class="w-24 h-24 mx-auto rounded-lg"
+              *ngIf="!product.productImageFiles.length"
+              src="../../../../../assets/default-product.png"
+              alt="{{ product.name }}"
+          /></a>
+          <div class="flex flex-col items-start justify-start w-full gap-y-3">
+            <span class="text-xs text-gray-400">{{ product.category }}</span>
+            <a
+              routerLink="/Product/{{ product.id }}"
+              class="text-lg font-semibold text-blue_black hover:underline block truncate text-ellipsis w-56"
+              >{{ product.name }}</a
+            >
+            <div class="flex items-center justify-between w-full">
+              <span class="text-lg text-primary font-bold">{{
+                product.price | currency : "USD"
+              }}</span>
+              <button
+                (click)="addToBasket(product)"
+                class="flex items-center gap-x-2 bg-green-200 text-primary p-3 rounded-md text-sm hover:bg-green-300"
+              >
+                <ng-icon name="matAddShoppingCartOutline" size="16"></ng-icon>
+                <span>Add</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+</div>

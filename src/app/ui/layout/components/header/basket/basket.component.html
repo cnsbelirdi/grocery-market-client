@@ -1,0 +1,70 @@
+<div id="basket">
+  <div class="{{ basketItems.length <= 0 ? 'hidden' : '' }}">
+    <ul
+      class="text-sm text-blue_black flex flex-col gap-y-4 max-h-44 overflow-y-scroll pb-2"
+    >
+      <li class="flex gap-x-4 mr-2" *ngFor="let item of basketItems">
+        <a routerLink="/" class="group">
+          <img
+            src="{{
+              item.productImageFile
+                ? baseUrl.url + '/' + item.productImageFile.path
+                : '../../../../../assets/default-product.png'
+            }}"
+            alt="{{ item.name }}"
+            class="w-20 p-2 border rounded-md border-slate-200 bg-white group-hover:bg-gray-50"
+          />
+        </a>
+        <div class="flex-1 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-gray-400">
+            <a
+              routerLink="/"
+              class="text-blue_black font-bold text-base hover:underline"
+            >
+              {{ item.name }}
+            </a>
+            <button
+              class="hover:text-gray-600"
+              (click)="removeBasketItem(item.basketItemId)"
+            >
+              <ng-icon name="heroTrash" size="18"></ng-icon>
+            </button>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-gray-400 text-bold">
+              Count:
+              <input
+                type="number"
+                [value]="item.quantity"
+                min="1"
+                class="text-blue_black w-5"
+                data-id="{{ item.basketItemId }}"
+                (change)="changeQuantity($event)"
+              />
+            </span>
+            <span class="text-primary font-bold text-base">
+              {{ item.price | currency : "USD" }}
+            </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="flex items-center gap-x-2">
+      <span class="w-1/2 block"
+        >Total:
+        <b class="text-lg text-primary">{{
+          totalPrice | currency : "USD"
+        }}</b></span
+      >
+      <a
+        routerLink="complete-order"
+        class="w-1/2 p-2 block bg-primary text-white mt-3 text-sm rounded-md hover:bg-emerald-600"
+      >
+        Complete Order
+      </a>
+    </div>
+  </div>
+  <span class="{{ basketItems.length > 0 ? 'hidden' : '' }}"
+    >Your cart is empty.</span
+  >
+</div>

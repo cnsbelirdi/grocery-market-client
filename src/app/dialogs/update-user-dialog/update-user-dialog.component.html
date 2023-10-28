@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Change {{ data.type }}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="grid col-span-1 gap-3">
+    <mat-form-field appearance="fill" class="">
+      <mat-label>Input</mat-label>
+      <input matInput #txtInput reqiured />
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    (click)="update(txtInput)"
+  >
+    Change value
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,147 @@
+<div class="space-y-4">
+  <!-- Delivery Information -->
+  <div class="p-4 border border-gray-300 rounded-md space-y-4 w-full">
+    <h1 class="flex items-center gap-x-3 text-2xl">
+      <span
+        class="flex items-center justify-center h-8 w-8 bg-primary text-white rounded-md"
+      >
+        1
+      </span>
+      Delivery Information
+    </h1>
+    <!-- Date / Time -->
+    <div class="space-y-2">
+      <h1 class="font-medium">Delivery Date / Time :</h1>
+      <div class="grid grid-cols-2 gap-x-4">
+        <select #date class="w-full border border-gray-300 rounded-md" required>
+          <option *ngFor="let date of dates" value="{{ date }}">
+            {{ date }}
+          </option>
+        </select>
+        <select #time class="w-full border border-gray-300 rounded-md" required>
+          <option *ngFor="let time of times" value="{{ time }}">
+            {{ time }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <!-- Address -->
+    <div class="space-y-2">
+      <h1 class="font-medium">Delivery Address :</h1>
+      <input
+        type="text"
+        class="w-full p-2 focus:ring-0 border border-gray-300 rounded-md"
+        placeholder="Enter your address"
+        #txtAddress
+      />
+    </div>
+    <!-- Description -->
+    <div class="space-y-2">
+      <h1 class="font-medium">Order Description :</h1>
+      <input
+        type="text"
+        class="w-full p-2 focus:ring-0 border border-gray-300 rounded-md"
+        placeholder="If you want, you can write any description about your order."
+        #txtDescription
+      />
+    </div>
+  </div>
+  <!-- Personal Information -->
+  <div class="p-4 border border-gray-300 rounded-md space-y-4 w-full">
+    <h1 class="flex items-center gap-x-3 text-2xl">
+      <span
+        class="flex items-center justify-center h-8 w-8 bg-primary text-white rounded-md"
+      >
+        2
+      </span>
+      Personal Information
+    </h1>
+    <div class="space-y-2" *ngIf="user">
+      <h1 class="font-medium">{{ user.fullName }}</h1>
+      <h1>{{ user.email }}</h1>
+      <h1>{{ user.phoneNumber }}</h1>
+    </div>
+  </div>
+  <!-- Payment -->
+  <div class="p-4 border border-gray-300 rounded-md space-y-4 w-full">
+    <h1 class="flex items-center gap-x-3 text-2xl">
+      <span
+        class="flex items-center justify-center h-8 w-8 bg-primary text-white rounded-md"
+      >
+        3
+      </span>
+      Payment
+    </h1>
+    <div class="space-y-2">
+      <div class="border border-gray-300 rounded-md p-3">
+        <input
+          id="ocard"
+          type="radio"
+          name="payment"
+          value="1"
+          class="w-4 h-4 text-primary bg-gray-100 border-gray-300 focus:ring-0 peer/ocard"
+          (change)="onRadioChange($event)"
+        />
+        <label for="ocard" class="ml-2 text-sm font-semibold text-gray-900">
+          Online Debit / Credit Card
+        </label>
+        <div
+          class="hidden peer-checked/ocard:flex items-center justify-between pt-3"
+        >
+          <app-card-payment (setPaid)="setPaid($event)"></app-card-payment>
+        </div>
+      </div>
+      <div class="border border-gray-300 rounded-md p-3">
+        <input
+          id="cash"
+          type="radio"
+          name="payment"
+          value="2"
+          class="w-4 h-4 text-primary bg-gray-100 border-gray-300 focus:ring-0 peer/cash"
+          (change)="onRadioChange($event)"
+        />
+        <label for="cash" class="ml-2 text-sm font-semibold text-gray-900">
+          Cash
+        </label>
+        <div class="hidden peer-checked/cash:block">Cash on Delivery</div>
+      </div>
+      <div class="border border-gray-300 rounded-md p-3">
+        <input
+          id="dcard"
+          type="radio"
+          name="payment"
+          value="3"
+          class="w-4 h-4 text-primary bg-gray-100 border-gray-300 focus:ring-0 peer/dcard"
+          (change)="onRadioChange($event)"
+        />
+        <label for="dcard" class="ml-2 text-sm font-semibold text-gray-900">
+          Credit Card at the Door
+        </label>
+        <div class="hidden peer-checked/dcard:block">
+          Pay at the Door with Credit Card
+        </div>
+      </div>
+      <div class="p-3">
+        <input
+          #approve
+          type="checkbox"
+          name="payment"
+          class="w-4 h-4 text-primary bg-gray-100 border-gray-300 focus:ring-0 peer/approve"
+        />
+        <label for="approve" class="ml-2 text-sm font-semibold text-gray-900">
+          I have read and accept the texts of the
+          <a href="/" class="text-primary"> Distance Sales Agreement </a>
+          and
+          <a href="/" class="text-primary"> Preliminary Information Form </a>
+          .
+        </label>
+      </div>
+      <button
+        (click)="completeOrder(txtAddress, txtDescription, date, time, approve)"
+        class="p-2 bg-primary text-white text-center w-full rounded-md hover:bg-gray-200 hover:text-primary shadow-md transition-all duration-300"
+      >
+        Complete Order
+      </button>
+    </div>
+  </div>
+</div>

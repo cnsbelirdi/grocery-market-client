@@ -1,0 +1,81 @@
+<div
+  class="w-full h-screen bg-hero bg-contain flex flex-col gap-y-4 items-center justify-center"
+>
+  <div class="flex flex-col w-1/5 bg-gray-50 p-6 rounded-sm gap-y-4">
+    <!-- WELCOME & LOGO -->
+    <div class="flex items-center justify-center gap-x-6">
+      <span class="text-blue_black text-2xl font-semibold">WELCOME</span>
+      <a href="/" class="flex">
+        <img src="../../../../../assets/logo.png" alt="logo" class="w-8 h-8" />
+        <div class="mx-2 -mt-1">
+          <h2 class="text-primary text-base font-semibold">Market Name</h2>
+          <h3 class="text-gray-400 text-xs">GROCERY / MARKET</h3>
+        </div>
+      </a>
+    </div>
+    <!-- FORM -->
+    <div class="grid gap-y-4">
+      <div class="w-full flex flex-col">
+        <label for="username" class="text-blue_black font-bold text-sm"
+          >Username or Email Address</label
+        >
+        <input
+          type="text"
+          id="username"
+          aria-describedby="usernameWarning"
+          #txtUsernameOrEmail
+          class="bg-white border-2 border-slate-300 p-1 rounded-sm outline-none focus:border-primary"
+        />
+      </div>
+      <div class="w-full flex flex-col">
+        <label for="password" class="text-blue_black font-bold text-sm">
+          <span>Password</span>
+          <a
+            routerLink="../forget-password"
+            class="text-primary text-xs underline ml-1"
+            >Forget?</a
+          >
+        </label>
+        <input
+          type="password"
+          id="password"
+          #txtPassword
+          class="bg-white border-2 border-slate-300 p-1 rounded-sm outline-none focus:border-primary"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="bg-primary text-white w-full p-1 rounded-sm"
+        (click)="login(txtUsernameOrEmail.value, txtPassword.value)"
+      >
+        Login
+      </button>
+    </div>
+    <!-- REGISTER -->
+    <div class="text-center">
+      <span class="text-sm">Don't have an account?</span>
+      <a routerLink="../register" class="text-primary text-xs underline ml-1"
+        >Sign up</a
+      >
+    </div>
+    <!-- GOOGLE & FACEBOOK -->
+    <div class="grid gap-y-2 items-center justify-center">
+      <div>
+        <asl-google-signin-button
+          type="standard"
+          size="medium"
+        ></asl-google-signin-button>
+      </div>
+      <div>
+        <button
+          class="flex items-center gap-x-2 w-full bg-white border border-gray-300 rounded-md px-2 py-[5px] text-sm font-semibold text-blue_black hover:bg-sky-50 hover:border-blue-100 transition-all duration-500"
+          (click)="facebookLogin()"
+        >
+          <ng-icon name="jamFacebook" color="blue" size="18"></ng-icon>
+          <span>Login with Facebook </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

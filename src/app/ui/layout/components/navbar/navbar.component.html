@@ -1,0 +1,72 @@
+<div class="container mx-auto flex pb-4 justify-between items-center mt-[72px]">
+  <!-- Browse Categories-->
+  <div class="max-h-20">
+    <button
+      mat-button
+      [matMenuTriggerFor]="browseCats"
+      class="flex items-center justify-center rounded-sm bg-primary text-white w-52 py-3"
+    >
+      <ng-icon name="matGridViewOutline" size="24"></ng-icon>
+      <span>Browse Categories</span>
+    </button>
+    <mat-menu #browseCats="matMenu" class="w-52 bg-primary !mt-2">
+      <a
+        routerLink="category/{{ ctg.name }}"
+        mat-menu-item
+        class="browse"
+        *ngFor="let ctg of categories"
+        (click)="setCategory(ctg)"
+        >{{ ctg.name }}</a
+      >
+    </mat-menu>
+  </div>
+  <!-- Menu -->
+  <ul class="flex items-center justify-center gap-x-12 text-sm">
+    <li>
+      <a
+        routerLink="/"
+        class="flex items-center gap-x-2 text-blue_black hover:text-primary"
+        routerLinkActive="text-primary"
+      >
+        <ng-icon name="heroHome" size="20"></ng-icon>
+        <span>Home</span>
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="/HotDeals"
+        class="flex items-center gap-x-2 text-blue_black hover:text-primary"
+        routerLinkActive="text-primary"
+      >
+        <ng-icon name="heroFire" size="20"></ng-icon>
+        <span>Hot deals</span>
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="/Promotions"
+        class="flex items-center gap-x-2 text-blue_black hover:text-primary"
+        routerLinkActive="text-primary"
+      >
+        <ng-icon name="matPercentOutline" size="20"></ng-icon>
+        <span>Promotions</span>
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="/NewProducts"
+        class="flex items-center gap-x-2 text-blue_black hover:text-primary"
+        routerLinkActive="text-primary"
+      >
+        <ng-icon name="heroMegaphone" size="20"></ng-icon>
+        <span>New products</span>
+      </a>
+    </li>
+  </ul>
+  <!-- Contact Info -->
+  <div class="flex items-center justify-center gap-x-4 text-blue_black">
+    <ng-icon name="heroPhone" size="20"></ng-icon>
+    <span class="text-primary">255 348 59 34</span>
+    <span>Support center</span>
+  </div>
+</div>

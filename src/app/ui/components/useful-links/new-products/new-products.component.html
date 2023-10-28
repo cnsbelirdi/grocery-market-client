@@ -1,0 +1,45 @@
+<div class="container mx-auto">
+  <h1 class="text-blue_black text-3xl font-semibold">New Products</h1>
+  <div class="flex flex-col items-center gap-y-20">
+    <div class="mt-5 w-full grid md:grid-cols-5 md:gap-5 sm:grid-cols-3">
+      <div
+        class="w-full rounded-md flex flex-col gap-y-3 p-4 border border-gray-300 relative shadow-md"
+      >
+        <span
+          class="text-rose-600 absolute top-2 left-2 flex items-center text-sm"
+        >
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/891/891448.png"
+            alt="sale"
+            class="w-5 h-5"
+          />
+        </span>
+        <img
+          class="w-24 h-24 mx-auto"
+          src="https://cdn-icons-png.flaticon.com/512/4056/4056860.png"
+          alt="Carrot"
+        />
+        <div class="flex flex-col items-start justify-start w-full gap-y-3">
+          <span class="text-xs text-gray-400">Fruits</span>
+          <a
+            href="/Product/2"
+            class="text-lg font-semibold text-blue_black hover:underline"
+          >
+            Carrot
+          </a>
+          <div class="flex items-center justify-between w-full">
+            <span class="text-lg text-primary font-bold space-x-2">
+              <span>$1.5</span>
+            </span>
+            <button
+              class="flex items-center gap-x-2 bg-green-200 text-primary p-3 rounded-md text-sm hover:bg-green-300"
+            >
+              <!-- <AddCartIcon size={12} /> -->
+              <span>Add</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

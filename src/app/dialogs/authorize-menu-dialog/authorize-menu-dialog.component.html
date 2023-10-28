@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>{{ data.name }}Role Assignment!</h1>
+<div mat-dialog-content>
+  <p>You can assign roles to the relevant page.</p>
+</div>
+<mat-selection-list #rolesList>
+  <mat-list-option
+    *ngFor="let role of listRoles"
+    selected="{{ role.selected }}"
+  >
+    {{ role.name }}
+  </mat-list-option>
+</mat-selection-list>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Cancel</button>
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    (click)="assignRoles(rolesList)"
+  >
+    Assign Roles
+  </button>
+</div>

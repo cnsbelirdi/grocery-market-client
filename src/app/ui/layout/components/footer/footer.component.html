@@ -1,0 +1,113 @@
+<div class="container mx-auto">
+  <hr class="my-24" />
+  <div class="flex">
+    <div class="w-2/3 flex flex-col">
+      <a href="/" class="flex">
+        <img src="../../../../../assets/logo.png" alt="logo" />
+        <div class="mx-2 -mt-1">
+          <h2 class="text-primary text-lg font-semibold">MARKETY</h2>
+          <h3 class="text-gray-400 text-xs">GROCERY / MARKET</h3>
+        </div>
+      </a>
+      <ul class="flex flex-col justify-center gap-y-4 mt-10 text-primary">
+        <li class="flex items-center gap-x-2">
+          <ng-icon name="heroMapPin" size="18"></ng-icon>
+          <span class="text-blue_black"> Address: X Street 1562 Istanbul </span>
+        </li>
+        <li class="flex items-center gap-x-2">
+          <ng-icon name="heroPhone" size="18"></ng-icon>
+          <span class="text-blue_black">Call us: 255 348 59 34</span>
+        </li>
+        <li class="flex items-center gap-x-2">
+          <ng-icon name="heroEnvelope" size="18"></ng-icon>
+          <span class="text-blue_black">
+            Email: info.grocerymarket@yandex.com
+          </span>
+        </li>
+        <li class="flex items-center gap-x-2">
+          <ng-icon name="heroClock" size="18"></ng-icon>
+          <span class="text-blue_black">
+            Work hours: 8:00 - 22:00, Sunday - Thursday
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="w-full flex justify-between">
+      <div class="flex flex-col gap-y-5 text-blue_black text-sm font-semibold">
+        <h1 class="text-lg font-extrabold">Account</h1>
+        <ul class="flex flex-col gap-y-3">
+          <li>
+            <a href="/user/profile">Profile</a>
+          </li>
+          <li>
+            <a href="/user/orders">Orders</a>
+          </li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-y-5 text-blue_black text-sm font-semibold">
+        <h1 class="text-lg font-extrabold">Useful links</h1>
+        <ul class="flex flex-col gap-y-3">
+          <li *ngFor="let item of usefulLinks">
+            <a routerLink="{{ item.href }}">{{ item.title }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-y-5 text-blue_black text-sm font-semibold">
+        <h1 class="text-lg font-extrabold">Help Center</h1>
+        <ul class="flex flex-col gap-y-3">
+          <li *ngFor="let item of helpCenter">
+            <a routerLink="{{ item.href }}">{{ item.title }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="mt-24 mb-8" />
+  <div class="flex items-center py-5 justify-between">
+    <span>© 2022, All rights reserved</span>
+    <div class="flex items-center gap-x-2">
+      <img
+        class="h-8"
+        src="https://cdn-icons-png.flaticon.com/512/196/196578.png"
+        alt="Visa"
+      />
+      <img
+        class="h-6"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png"
+        alt="Mastercard"
+      />
+      <img
+        class="h-6"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Maestro_logo.png/1200px-Maestro_logo.png"
+        alt="Maestro"
+      />
+    </div>
+    <div class="flex gap-x-2 items-center">
+      <a
+        href="/"
+        class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-emerald-700"
+      >
+        <ng-icon name="jamFacebook" size="24"></ng-icon>
+      </a>
+      <a
+        href="/"
+        class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-emerald-700"
+      >
+        <ng-icon name="jamTwitter" size="24"></ng-icon>
+      </a>
+      <a
+        href="/"
+        class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-emerald-700"
+      >
+        <ng-icon name="jamInstagram" size="24"></ng-icon>
+      </a>
+      <a
+        href="/"
+        class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-emerald-700"
+      >
+        <ng-icon name="jamLinkedin" size="24"></ng-icon>
+      </a>
+    </div>
+  </div>
+</div>

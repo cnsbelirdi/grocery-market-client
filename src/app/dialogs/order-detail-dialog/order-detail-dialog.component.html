@@ -1,0 +1,103 @@
+<h2 mat-dialog-title>Order Detail</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-list>
+    <mat-list-item>
+      <span matListItemTitle>Order Number</span>
+      <span matListItemLine>{{ singleOrder.orderNumber }}</span>
+    </mat-list-item>
+    <mat-list-item>
+      <span matListItemTitle>Address</span>
+      <span>{{ singleOrder.address }}</span>
+    </mat-list-item>
+    <mat-list-item>
+      <span matListItemTitle>Description</span>
+      <span>{{ singleOrder.description }}</span>
+    </mat-list-item>
+    <mat-list-item>
+      <span matListItemTitle>Delivery Time</span>
+      <span>{{ singleOrder.deliveryTime }}</span>
+    </mat-list-item>
+    <mat-list-item>
+      <span matListItemTitle>Payment Option</span>
+      <span>{{
+        singleOrder.paymentOption == 1
+          ? "Online Debit / Credit Card"
+          : singleOrder.paymentOption == 2
+          ? "Cash on Delivery"
+          : "Credit Card on Delivery"
+      }}</span>
+    </mat-list-item>
+  </mat-list>
+
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 demo-table"
+    style="box-shadow: none"
+  >
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="flex items-center">
+          <span>{{ element.name }}</span>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.price | currency : "$" }}
+      </td>
+    </ng-container>
+
+    <!-- Quantity Column -->
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef>Quantity</th>
+      <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
+    </ng-container>
+
+    <!-- Total Price Column -->
+    <ng-container matColumnDef="totalPrice">
+      <th mat-header-cell *matHeaderCellDef>Total Price</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.quantity * element.price | currency : "$" }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      (click)="clickedRows.add(row)"
+      [class.demo-row-is-clicked]="clickedRows.has(row)"
+      *matRowDef="let row; columns: displayedColumns"
+    ></tr>
+  </table>
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      justify-items: center;
+      align-items: end;
+      gap: 10px;
+    "
+  >
+    <span style="font-weight: bold">Total Order Price : </span>
+    <span>{{ totalPrice | currency : "$" }}</span>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    (click)="completeOrder()"
+    *ngIf="singleOrder.status == 'Waiting'"
+  >
+    Complete Order
+  </button>
+</mat-dialog-actions>
