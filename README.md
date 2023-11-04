@@ -7,4 +7,4 @@ This project was created to provide Frontend to the Grocery Market Website.
 * Angular JS
 * Tailwind CSS
 * Material UI
-* Toastr for custom Notifications
+* Toastr for custom notifications
